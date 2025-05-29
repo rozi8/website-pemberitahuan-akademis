@@ -1,31 +1,52 @@
+// App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
+import Homeafterlogin from './pages/Homeafterlogin';
+import EditProfil from './pages/EditProfil';
 import Dashboard from './pages/Dashboard';
 
-function App() {
+function PrivateRoute({ children }) {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  return isLoggedIn ? children : <Navigate to="/login" />;
+}
 
+function App() {
   return (
     <Router>
       <Routes>
-        {/* Halaman Home */}
         <Route path="/" element={<Home />} />
+        
+        <Route path="/login" element={<LoginPage />} />
 
-        {/* Halaman Login */}
         <Route 
-          path="/login" 
-          element={isLoggedIn ? <Navigate to="/dashboard" /> : <LoginPage />} 
+          path="/Homeafterlogin" 
+          element={
+            <PrivateRoute>
+              <Homeafterlogin />
+            </PrivateRoute>
+          } 
         />
 
-        {/* Halaman Dashboard (hanya untuk user yang login) */}
         <Route 
-          path="/dashboard" 
-          element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />} 
+          path="/editprofil"
+          element={
+            <PrivateRoute>
+              <EditProfil />
+            </PrivateRoute>
+          }
+        />
+        <Route 
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
         />
 
-        {/* Default route (jika path tidak ditemukan) */}
+        {/* Redirect semua route yang tidak ditemukan */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

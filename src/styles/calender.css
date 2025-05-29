@@ -1,0 +1,13 @@
+.react-calendar {
+  font-size: 1.25rem; /* lebih besar dari default */
+  padding: 1rem;
+  width: 100%;
+}
+
+.react-calendar__tile {
+  padding: 1rem !important;
+}
+
+.react-calendar__month-view__days__day {
+  height: 80px !important;
+}

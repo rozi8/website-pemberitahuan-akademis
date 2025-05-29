@@ -15,7 +15,7 @@ function LoginPage() {
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('userRole', role); // simpan peran user
 
-      navigate('/dashboard');
+      navigate('/Homeafterlogin');
     } else {
       alert('Silakan isi semua data termasuk peran pengguna.');
     }
